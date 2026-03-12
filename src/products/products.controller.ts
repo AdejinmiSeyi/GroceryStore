@@ -2,6 +2,7 @@ import { Controller, Get, Param, Query, Post, Body, Patch, Delete} from '@nestjs
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { deleteProductDto } from './dto/delete-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -35,7 +36,8 @@ export class ProductsController {
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
+    remove(@Param() params: deleteProductDto) {
+        const id = params.id
         this.productsService.remove(id)
         return {Message: 'Product deleted successfully'}
     }
